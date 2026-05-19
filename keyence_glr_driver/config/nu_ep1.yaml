@@ -1,0 +1,9 @@
+keyence_glr_driver:
+  ros__parameters:
+    ip_address: "192.168.0.10"
+    assembly_instance: 100
+    assembly_size: 12
+    beam_count: 64
+    poll_hz: 20.0
+    frame_id: "gl_r"
+    stale_timeout_s: 0.5
