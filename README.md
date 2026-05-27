@@ -10,7 +10,7 @@ an **NU-EP1** EtherNet/IP unit and shows it on a live web dashboard.
 |---|---|
 | `keyence_glr_msgs`   | `BeamStatus.msg`, `CurtainStatus.msg` |
 | `keyence_glr_driver` | `nu_ep1_driver` (real, via pycomm3) + `mock_publisher` (sweep) |
-| `keyence_glr_bringup`| rosbridge + static web dashboard (`/gl_r/status` over ws://…/9090) |
+| `keyence_glr_bringup`| rosbridge + static **raw-data** web view (`/gl_r/status` over ws://…/9090) |
 
 Topic: `/gl_r/status`  (`keyence_glr_msgs/msg/CurtainStatus`, ~20 Hz)
 
@@ -33,7 +33,8 @@ source install/setup.bash
 ```bash
 ros2 launch keyence_glr_bringup demo.launch.py use_mock:=true
 ```
-Open `http://<jetson-ip>:8000/` — a "hand" sweeps across the 52 beams.
+Open `http://<jetson-ip>:8000/` — a "hand" sweeps across the 52 beams; the
+page shows it as a live 0/1 bitmap (see below).
 
 **Real GL-R52H via NU-EP1:**
 ```bash
@@ -43,6 +44,26 @@ Open `http://<jetson-ip>:8000/` — a "hand" sweeps across the 52 beams.
 #   assembly_instance, assembly_size  (from your NU-EP1 EDS)
 ros2 launch keyence_glr_bringup demo.launch.py use_mock:=false
 ```
+
+## Web view (raw `/gl_r/status`)
+
+`http://<jetson-ip>:8000/` is a technical, no-frills view of the raw message
+(it subscribes over rosbridge `ws://<host>:9090`). No mapping/processing — just
+what the driver publishes:
+
+- **beam bitmap** — every optical axis as `index` + `0/1` (1 = blocked),
+  coloured by `health` (clear / blocked / stale / fault)
+- **fields** — `stamp`, `frame_id`, `beam_count`, `ossd_a/b`, `lockout`,
+  `muted`, `any_blocked`, `blocked_count` as raw values
+- **bitmap bytes** — beams re-packed to bytes (LSB = beam 0) shown in **hex**
+  and **binary**, matching the NU-EP1 byte layout below — handy for confirming
+  a GC-1000/NU-EP1 assembly layout
+- **raw message** — the full `CurtainStatus` as JSON (throttled)
+- header pills: connection, real **Hz**, and message **age** (red if the
+  stream stalls > 500 ms)
+
+The UI lives in `src/keyence_glr_bringup/web/` (`index.html`, `app.js`,
+`style.css`).
 
 ## NU-EP1 wiring you must verify
 
