@@ -8,7 +8,7 @@ def generate_launch_description() -> LaunchDescription:
             package='keyence_glr_driver',
             executable='mock_publisher',
             name='keyence_glr_mock',
-            parameters=[{'beam_count': 64, 'publish_hz': 20.0}],
+            parameters=[{'beam_count': 52, 'publish_hz': 20.0}],
             output='screen',
         ),
     ])

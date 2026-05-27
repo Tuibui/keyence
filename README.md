@@ -1,8 +1,8 @@
 # keyence_glr_ws
 
 ROS 2 **Humble** workspace (source-only — build on the Jetson) that reads
-per-beam status from a Keyence GL-R light curtain via an **NU-EP1** EtherNet/IP
-unit and shows it on a live web dashboard.
+per-beam status from a Keyence **GL-R52H** light curtain (52 optical axes) via
+an **NU-EP1** EtherNet/IP unit and shows it on a live web dashboard.
 
 ## Packages
 
@@ -33,12 +33,14 @@ source install/setup.bash
 ```bash
 ros2 launch keyence_glr_bringup demo.launch.py use_mock:=true
 ```
-Open `http://<jetson-ip>:8000/` — a "hand" sweeps across the 64 beams.
+Open `http://<jetson-ip>:8000/` — a "hand" sweeps across the 52 beams.
 
-**Real GL-R via NU-EP1:**
+**Real GL-R52H via NU-EP1:**
 ```bash
-# Edit src/keyence_glr_driver/config/nu_ep1.yaml first:
-#   ip_address, assembly_instance, assembly_size  (from your NU-EP1 EDS)
+# nu_ep1.yaml is preset for the GL-R52H (beam_count: 52). Before going live,
+# confirm in src/keyence_glr_driver/config/nu_ep1.yaml:
+#   ip_address (the GC1000/NU-EP1 IP, not the Jetson),
+#   assembly_instance, assembly_size  (from your NU-EP1 EDS)
 ros2 launch keyence_glr_bringup demo.launch.py use_mock:=false
 ```
 
@@ -55,8 +57,10 @@ EDS / setup software and must match `nu_ep1.yaml`:
   - bytes 2–9 : 64-bit beam bitmap, LSB = beam 0
   - bytes 10–11 : blocked-beam count (u16)
 
-  If your EDS differs, adjust `AssemblyLayout` and the bit positions
-  (`STATUS_*`) — that's the only place the byte parsing lives.
+  The NU-EP1 bitmap is a fixed 8 bytes (64 bits); the GL-R52H uses the low
+  52 bits and `beam_count: 52` ignores the unused top bits. If your EDS
+  differs, adjust `AssemblyLayout` and the bit positions (`STATUS_*`) —
+  that's the only place the byte parsing lives.
 
 ## Dev on this (non-Jetson) box
 
