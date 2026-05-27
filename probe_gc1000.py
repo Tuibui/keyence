@@ -28,7 +28,7 @@ import sys
 import time
 
 try:
-    from pycomm3 import CIPDriver, Services
+    from pycomm3 import CIPDriver
 except ImportError:
     sys.exit("pycomm3 not installed.  pip3 install --user pycomm3")
 
@@ -50,7 +50,9 @@ def read_assembly(drv, class_code, instance, attribute, service='single'):
     "Service not supported" but still answer get_attribute_all (0x01); others
     expose data only through cyclic I/O (Class 1) and answer neither.
     """
-    svc = Services.get_attribute_all if service == 'all' else Services.get_attribute_single
+    # Raw CIP service codes (version-proof; pycomm3 enum names vary by release):
+    #   0x01 = Get_Attributes_All, 0x0E = Get_Attribute_Single
+    svc = 0x01 if service == 'all' else 0x0E
     kwargs = dict(
         service=svc,
         class_code=class_code,
