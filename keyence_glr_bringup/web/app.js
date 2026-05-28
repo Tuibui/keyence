@@ -54,7 +54,7 @@
 
   function boolCls(v) { return v ? 'on' : 'off'; }
 
-  // reconstruct the beam bitmap into bytes, LSB = beam 0 (NU-EP1 layout)
+  // reconstruct the beam bitmap into bytes, LSB = beam 0
   function bitmapBytes(beams, n) {
     const nbytes = Math.ceil(n / 8);
     const bytes = new Uint8Array(nbytes);

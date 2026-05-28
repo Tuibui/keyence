@@ -1,5 +1,5 @@
 """Mock CurtainStatus publisher — sweeps a virtual "hand" across the beams so
-you can develop the dashboard without the GL-R + NU-EP1 hooked up."""
+you can develop the dashboard without the GL-R + GC-1000 hooked up."""
 from __future__ import annotations
 
 import math

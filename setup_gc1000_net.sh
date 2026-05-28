@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# ตั้ง static IP บนพอร์ต LAN ของ Jetson เพื่อคุยกับ GC1000 (EtherNet/IP)
+# ตั้ง static IP บนพอร์ต LAN ของ Jetson เพื่อคุยกับ GC1000 (Modbus/TCP, พอร์ต 502)
 # ใช้ NetworkManager (nmcli) -> ค่าอยู่ถาวรข้ามรีบูต + auto-connect เมื่อเสียบสาย
 set -euo pipefail
 
@@ -9,7 +9,7 @@ IFACE="auto"              # "auto" = ตรวจหาพอร์ต ethernet 
 CON_NAME="gc1000"         # ชื่อ connection profile
 PC_IP="192.168.0.100"     # IP ของ Jetson (ต้องคนละเลขกับ GC1000)
 PREFIX="24"               # /24 = netmask 255.255.255.0
-GC1000_IP="192.168.0.10"  # IP ของ GC1000 (ตาม nu_ep1.yaml) ใช้ ping เทสต์
+GC1000_IP="192.168.0.10"  # IP ของ GC1000 (ตาม gc_modbus.yaml) ใช้ ping เทสต์
 # ========================================================
 
 # --- auto-detect พอร์ต ethernet ถ้า IFACE=auto (รองรับทั้ง Jetson eth0 และ dev box enp2s0) ---

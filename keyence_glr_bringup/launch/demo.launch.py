@@ -15,7 +15,7 @@ def generate_launch_description() -> LaunchDescription:
 
     return LaunchDescription([
         DeclareLaunchArgument('use_mock', default_value='true',
-                              description='true = run mock_publisher; false = run real NU-EP1 driver'),
+                              description='true = run mock_publisher; false = run real GC-1000 Modbus driver'),
         DeclareLaunchArgument('web_port', default_value='8000'),
         DeclareLaunchArgument('rosbridge_port', default_value='9090'),
 

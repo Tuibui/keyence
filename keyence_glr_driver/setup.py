@@ -19,12 +19,12 @@ setup(
     zip_safe=True,
     maintainer='tuibui',
     maintainer_email='jedayhotmail@gmail.com',
-    description='Keyence GL-R EtherNet/IP driver (NU-EP1) for ROS 2 Humble.',
+    description='Keyence GL-R Modbus/TCP driver (GC-1000 / GC-Link) for ROS 2 Humble.',
     license='MIT',
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'nu_ep1_driver = keyence_glr_driver.nu_ep1_driver:main',
+            'gc_modbus_driver = keyence_glr_driver.gc_modbus_driver:main',
             'mock_publisher = keyence_glr_driver.mock_publisher:main',
         ],
     },

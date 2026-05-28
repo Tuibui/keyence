@@ -6,12 +6,12 @@ import os
 
 def generate_launch_description() -> LaunchDescription:
     cfg = os.path.join(
-        get_package_share_directory('keyence_glr_driver'), 'config', 'nu_ep1.yaml'
+        get_package_share_directory('keyence_glr_driver'), 'config', 'gc_modbus.yaml'
     )
     return LaunchDescription([
         Node(
             package='keyence_glr_driver',
-            executable='nu_ep1_driver',
+            executable='gc_modbus_driver',
             name='keyence_glr_driver',
             parameters=[cfg],
             output='screen',
