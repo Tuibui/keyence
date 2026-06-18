@@ -69,7 +69,7 @@ public:
     reconnect_delay_s_ = get_parameter("reconnect_delay_s").as_double();
     window_name_ = get_parameter("window_name").as_string();
     show_fps_ = get_parameter("show_fps").as_bool();
-    log_every_n_ = std::max(1, get_parameter("log_every_n").as_int());
+    log_every_n_ = std::max<int64_t>(1, get_parameter("log_every_n").as_int());
 
     // Create the window as resizable (WINDOW_AUTOSIZE, the imshow default,
     // locks it to the frame size). KEEPRATIO preserves the aspect ratio.
