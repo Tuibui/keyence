@@ -61,11 +61,19 @@ public:
     declare_parameter<double>("reconnect_delay_s", 2.0);
     declare_parameter<std::string>("window_name", "Hikvision DS-2CD2046G2");
     declare_parameter<bool>("show_fps", true);
+    // Log the frame number every Nth frame: N=4 logs frames 1, 5, 9, 13, ...
+    // (purely informational; every frame is still displayed).
+    declare_parameter<int>("log_every_n", 4);
 
     use_tcp_ = get_parameter("use_tcp").as_bool();
     reconnect_delay_s_ = get_parameter("reconnect_delay_s").as_double();
     window_name_ = get_parameter("window_name").as_string();
     show_fps_ = get_parameter("show_fps").as_bool();
+    log_every_n_ = std::max(1, get_parameter("log_every_n").as_int());
+
+    // Create the window as resizable (WINDOW_AUTOSIZE, the imshow default,
+    // locks it to the frame size). KEEPRATIO preserves the aspect ratio.
+    cv::namedWindow(window_name_, cv::WINDOW_NORMAL | cv::WINDOW_KEEPRATIO);
 
     url_ = build_url();
 
@@ -170,6 +178,11 @@ private:
       return;
     }
 
+    // Log the frame number on frames 1, 1+N, 1+2N, ... (N == log_every_n_).
+    if (++frame_count_ % log_every_n_ == 1 % log_every_n_) {
+      RCLCPP_INFO(get_logger(), "frame %lu", frame_count_);
+    }
+
     if (show_fps_) {
       const auto now = std::chrono::steady_clock::now();
       const double dt = std::chrono::duration<double>(now - last_t_).count();
@@ -199,6 +212,8 @@ private:
   std::string window_name_;
   bool use_tcp_{true};
   bool show_fps_{true};
+  int log_every_n_{4};
+  unsigned long frame_count_{0};
   double reconnect_delay_s_{2.0};
   double fps_{0.0};
   std::chrono::steady_clock::time_point last_t_;

@@ -24,3 +24,4 @@ hikvision_camera:
     reconnect_delay_s: 2.0  # wait before retrying after a dropped stream
     window_name: "Hikvision DS-2CD2046G2"
     show_fps: true          # overlay measured FPS on the displayed frame
+    log_every_n: 4          # log the frame number every Nth frame (4 -> 1,5,9,13,...)
