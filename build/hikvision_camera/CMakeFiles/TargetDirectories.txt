@@ -1,0 +1,10 @@
+/home/tuibui/keyence/build/hikvision_camera/CMakeFiles/uninstall.dir
+/home/tuibui/keyence/build/hikvision_camera/CMakeFiles/hikvision_camera_uninstall.dir
+/home/tuibui/keyence/build/hikvision_camera/CMakeFiles/rtsp_display.dir
+/home/tuibui/keyence/build/hikvision_camera/CMakeFiles/test.dir
+/home/tuibui/keyence/build/hikvision_camera/CMakeFiles/edit_cache.dir
+/home/tuibui/keyence/build/hikvision_camera/CMakeFiles/rebuild_cache.dir
+/home/tuibui/keyence/build/hikvision_camera/CMakeFiles/list_install_components.dir
+/home/tuibui/keyence/build/hikvision_camera/CMakeFiles/install.dir
+/home/tuibui/keyence/build/hikvision_camera/CMakeFiles/install/local.dir
+/home/tuibui/keyence/build/hikvision_camera/CMakeFiles/install/strip.dir

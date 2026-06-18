@@ -1,0 +1,4 @@
+source;share/hikvision_camera/local_setup.bash
+source;share/hikvision_camera/local_setup.dsv
+source;share/hikvision_camera/local_setup.sh
+source;share/hikvision_camera/local_setup.zsh
